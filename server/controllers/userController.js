@@ -16,22 +16,25 @@ module.exports = {
             const existingDoc = await db.getDb()
                 .db()
                 .collection('users')
-                .findOne({ email })
+                .findOne({ 'local.email': email })
 
-            if(existingDoc) {
+            if (existingDoc) {
                 return res.status(400).json({ email: 'Email already in use' })
             }
 
             //encrypt password
             const salt = await bcrypt.genSalt(10)
             const hash = await bcrypt.hash(password, salt)
-            
+
             //create new user
             const newUser = {
-                firstname,
-                lastname,
-                email,
-                password: hash
+                local: {
+                    firstname,
+                    lastname,
+                    email,
+                    password: hash,
+                },
+                role: 'default'
             }
 
             //save new user
@@ -42,15 +45,15 @@ module.exports = {
                 .insertOne(newUser)
 
             //generate token
-            const payload = { id: userDoc.ops[0]._id}
+            const payload = { id: userDoc.ops[0]._id }
             const options = { expiresIn: '6h' }
             const token = await jwt.sign(payload, process.env.SECRET, options)
-            
+
             //store token in cookie
-            res.cookie('x_auth', token).status(200).json({success: 'user registered'})
+            res.cookie('x_auth', token).status(200).json({ success: 'user registered' })
 
         } catch (err) {
-            return res.status(500).json({error: 'Creating the user account failed', err})
+            return res.status(500).json({ error: 'Creating the user account failed', err })
         }
     },
 
@@ -64,27 +67,29 @@ module.exports = {
             const existingDoc = await db.getDb()
                 .db()
                 .collection('users')
-                .findOne({ email })
+                .findOne({ 'local.email': email })
 
-            if(!existingDoc) {
+                console.log('ex', existingDoc)
+
+            if (!existingDoc) {
                 return res.status(404).json({ email: 'User not found. Please verify your email or create an account.' })
             }
 
             //compare passwords
-            const isMatch = await bcrypt.compare(password, existingDoc.password)
-            if(!isMatch) {
+            const isMatch = await bcrypt.compare(password, existingDoc.local.password)
+            if (!isMatch) {
                 return res.status(403).json({ password: 'Password does not match. Please check again.' })
             }
             //generate token
-            const payload = { id: existingDoc._id}
+            const payload = { id: existingDoc._id }
             const options = { expiresIn: '6h' }
             const token = await jwt.sign(payload, process.env.SECRET, options)
 
             //store token in cookie
-            res.cookie('x_auth', token).status(200).json({success: 'user logged in'})
+            res.cookie('x_auth', token).status(200).json({ success: 'user logged in' })
 
         } catch (err) {
-            return res.status(500).json({error: 'Login failed', err})
+            return res.status(500).json({ error: 'Login failed', err })
         }
     }
 }
