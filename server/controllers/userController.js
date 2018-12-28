@@ -9,7 +9,7 @@ module.exports = {
     registerUser: async (req, res) => {
 
         try {
-            //get data from register from
+            //get data from register form
             const { firstname, lastname, email, password } = req.body
 
             //check if email not already in dababase
@@ -51,6 +51,40 @@ module.exports = {
 
         } catch (err) {
             return res.status(500).json({error: 'Creating the user account failed', err})
+        }
+    },
+
+    loginUser: async (req, res) => {
+
+        try {
+            //get data from login form
+            const { email, password } = req.body
+
+            //verify that user has registered an account
+            const existingDoc = await db.getDb()
+                .db()
+                .collection('users')
+                .findOne({ email })
+
+            if(!existingDoc) {
+                return res.status(404).json({ email: 'User not found. Please verify your email or create an account.' })
+            }
+
+            //compare passwords
+            const isMatch = await bcrypt.compare(password, existingDoc.password)
+            if(!isMatch) {
+                return res.status(403).json({ password: 'Password does not match. Please check again.' })
+            }
+            //generate token
+            const payload = { id: existingDoc._id}
+            const options = { expiresIn: '6h' }
+            const token = await jwt.sign(payload, process.env.SECRET, options)
+
+            //store token in cookie
+            res.cookie('x_auth', token).status(200).json({success: 'user logged in'})
+
+        } catch (err) {
+            return res.status(500).json({error: 'Login failed', err})
         }
     }
 }

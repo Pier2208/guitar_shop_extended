@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 require('dotenv').config()
 
@@ -23,6 +24,7 @@ db.initDb((err, db) => {
 //middlewares
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
 
 
 //routes

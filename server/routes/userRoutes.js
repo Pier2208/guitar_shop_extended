@@ -9,5 +9,10 @@ const userController = require('../controllers/userController')
 //PUBLIC route
 router.post('/register', userController.registerUser)
 
+//@ POST 'api/users/login'
+//@ Desc Log in a user
+//PUBLIC route
+router.post('/login', userController.loginUser)
+
 
 module.exports = router
