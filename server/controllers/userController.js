@@ -33,12 +33,17 @@ module.exports = {
             //create new user
             const newUser = {
                 local: {
-                    firstname,
-                    lastname,
-                    email,
-                    password: hash,
+                    firstname: firstname.trim(),
+                    lastname: lastname.trim(),
+                    email: email.toLowerCase().trim(),
+                    password: hash
                 },
-                role: 'default'
+                role: 'default',
+                cart: [],
+                wishlist: [],
+                history: [],
+                reviews: [],
+                avatar: ''
             }
 
             //save new user
@@ -96,6 +101,10 @@ module.exports = {
         } catch (err) {
             return res.status(500).json({ error: 'Login failed', err })
         }
+    },
+
+    logoutUser: (req, res) => {
+        res.clearCookie('x_auth').json({ success: 'user logged out'})
     },
 
     authUser: (req, res) => {
