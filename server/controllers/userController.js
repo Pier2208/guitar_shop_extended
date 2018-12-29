@@ -9,6 +9,10 @@ module.exports = {
     registerUser: async (req, res) => {
 
         try {
+
+            if (req.errors)
+                return res.status(400).json(req.errors)
+
             //get data from register form
             const { firstname, lastname, email, password } = req.body
 
@@ -59,6 +63,9 @@ module.exports = {
 
     loginUser: async (req, res) => {
 
+        if (req.errors)
+                return res.status(400).json(req.errors)
+
         try {
             //get data from login form
             const { email, password } = req.body
@@ -68,8 +75,6 @@ module.exports = {
                 .db()
                 .collection('users')
                 .findOne({ 'local.email': email })
-
-                console.log('ex', existingDoc)
 
             if (!existingDoc) {
                 return res.status(404).json({ email: 'User not found. Please verify your email or create an account.' })
