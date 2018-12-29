@@ -79,7 +79,7 @@ module.exports = {
             const existingDoc = await db.getDb()
                 .db()
                 .collection('users')
-                .findOne({ 'local.email': email })
+                .findOne({ 'local.email': email.toLowerCase().trim() })
 
             if (!existingDoc) {
                 return res.status(404).json({ email: 'User not found. Please verify your email or create an account.' })
@@ -104,7 +104,7 @@ module.exports = {
     },
 
     logoutUser: (req, res) => {
-        res.clearCookie('x_auth').json({ success: 'user logged out'})
+        res.clearCookie('x_auth').json({ success: 'user logged out' })
     },
 
     authUser: (req, res) => {
@@ -113,7 +113,13 @@ module.exports = {
             firstname: req.user.local.firstname,
             lastname: req.user.local.lastname,
             email: req.user.local.email,
-            role: req.user.role
+            role: req.user.role,
+            role: 'default',
+            cart: [],
+            wishlist: [],
+            history: [],
+            reviews: [],
+            avatar: ''
         })
     }
 }

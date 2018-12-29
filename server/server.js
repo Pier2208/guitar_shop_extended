@@ -29,4 +29,5 @@ app.use(cookieParser())
 
 //routes
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/auth', require('./routes/authRoutes'))
 

@@ -28,6 +28,4 @@ router.get('/auth', authenticate, userController.authUser)
 //PRIVATE route
 router.get('/logout', authenticate, userController.logoutUser)
 
-
-
 module.exports = router
