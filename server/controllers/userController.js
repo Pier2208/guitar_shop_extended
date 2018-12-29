@@ -64,7 +64,7 @@ module.exports = {
     loginUser: async (req, res) => {
 
         if (req.errors)
-                return res.status(400).json(req.errors)
+            return res.status(400).json(req.errors)
 
         try {
             //get data from login form
@@ -96,5 +96,15 @@ module.exports = {
         } catch (err) {
             return res.status(500).json({ error: 'Login failed', err })
         }
+    },
+
+    authUser: (req, res) => {
+
+        res.status(200).json({
+            firstname: req.user.local.firstname,
+            lastname: req.user.local.lastname,
+            email: req.user.local.email,
+            role: req.user.role
+        })
     }
 }

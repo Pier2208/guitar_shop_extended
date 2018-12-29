@@ -6,6 +6,7 @@ const userController = require('../controllers/userController')
 
 //middlewares
 const { validateBody, schemas } = require('../middlewares/validate')
+const { authenticate }  = require('../middlewares/authenticate')
 
 //@ POST 'api/users/register'
 //@ Desc Register a new user
@@ -16,6 +17,11 @@ router.post('/register', validateBody(schemas.registerSchema), userController.re
 //@ Desc Log in a user
 //PUBLIC route
 router.post('/login', validateBody(schemas.loginSchema), userController.loginUser)
+
+//@ GET 'api/users/auth'
+//@ Desc Fetch current user
+//PRIVATE route
+router.get('/auth', authenticate, userController.authUser)
 
 
 module.exports = router
