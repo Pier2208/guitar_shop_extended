@@ -1,4 +1,5 @@
 const express = require('express')
+const helmet = require('helmet')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
@@ -22,6 +23,7 @@ db.initDb((err, db) => {
 })
 
 //middlewares
+app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
