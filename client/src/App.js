@@ -9,12 +9,13 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { theme } from './styles/theme'
 
 //components (public)
+import Layout from './components/UI/HOC/Layout'
 
 //components (private)
 
 //withAuth HOC
 
-//fontawsone library
+//fontawesome library
 library.add(fab, fas)
 
 //global styles
@@ -34,19 +35,24 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-size: 1.6rem;
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Roboto', sans-serif;
+        color: ${({theme}) => theme.fontColorDark};
     }
     a {
         text-decoration: none;
-        color: ${props => props.theme.accentColor};
     }
 `
 
 const App = () => {
   return (
-      <div>
-        APP
-      </div>
+    <ThemeProvider theme={theme}>
+      <Layout>
+        <GlobalStyle />
+        <div>
+          APP
+        </div>
+      </Layout>
+    </ThemeProvider>
   )
 }
 
