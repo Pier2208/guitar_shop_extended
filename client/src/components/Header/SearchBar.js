@@ -4,6 +4,8 @@ import styled from 'styled-components'
 //imported components
 import SocialIcons from '../UI/utils/SocialIcons'
 import Search from '../UI/utils/Search'
+import LangSelector from '../UI/utils/LangSelector'
+import Questions from '../UI/utils/Questions'
 
 //styled components
 const SearchBarWrapper = styled.div`
@@ -25,7 +27,9 @@ const SearchBar = () =>
     <SearchBarWrapper>
         <Container>
             <SocialIcons />
+            <Questions />
             <Search />
+            <LangSelector />
         </Container>
     </SearchBarWrapper>
 

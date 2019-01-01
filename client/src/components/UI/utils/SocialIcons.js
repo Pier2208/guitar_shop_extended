@@ -9,6 +9,7 @@ const SocialIconsWrapper = styled.div`
     justify-content: space-between;
     width: 18rem;
     background-color: 'transparent';
+    margin-right: auto;
 
     svg {
         font-size: 3rem;

@@ -20,7 +20,7 @@ library.add(fab, fas)
 
 //global styles
 const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+    @import url('https://fonts.googleapis.com/css?family=Roboto:300,700');
     
     html {
         box-sizing: border-box;

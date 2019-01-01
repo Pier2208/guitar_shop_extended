@@ -9,6 +9,7 @@ const Form = styled.form`
     align-items: center;
     justify-content: center;
     width: 20rem;
+    margin-left: 3rem;
 `
 
 const Button = styled.button`
