@@ -21,6 +21,7 @@ library.add(fab, fas)
 //global styles
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Roboto:300,700');
+    @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
     
     html {
         box-sizing: border-box;

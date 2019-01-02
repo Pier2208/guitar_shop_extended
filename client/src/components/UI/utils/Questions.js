@@ -15,7 +15,6 @@ const QuestionsWrapper = styled.div`
         font-weight: 300;
         text-transform: uppercase;
         margin-left: .8rem;
-        border-bottom: 2px solid orange;
     }
     
     svg {
