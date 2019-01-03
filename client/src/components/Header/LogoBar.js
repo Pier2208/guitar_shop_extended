@@ -29,32 +29,28 @@ const LogoTitle = styled.div`
     flex-direction: column;
     height: 17rem;
     width: 15rem;
+    font-family: 'Fredericka the Great', cursive;
+    h2 {
+        margin: 0;
+    }
 `
 const WordThe = styled.h2`
-    font-family: 'Fredericka the Great', cursive;
     font-size: 4.5rem;
-    margin: 0;
     transform: translateX(-1rem);
 `
 const WordGuitar = styled.h2`
-    font-family: 'Fredericka the Great', cursive;
-    color: #993418;
+    color: ${({ theme }) => theme.secondaryColorDark};
     font-size: 6rem;
-    margin: 0;
     transform: rotate(-7deg) translateY(-1.5rem) translateX(-4rem);
 `
 
 const WordBass = styled.h2`
-    font-family: 'Fredericka the Great', cursive;
     font-size: 2.5rem;
-    margin: 0;
     transform: translateY(-2rem) translateX(9rem);
     
 `
 const WordShop = styled.h2`
-    font-family: 'Fredericka the Great', cursive;
     font-size: 4.5rem;
-    margin: 0;
     transform: translateY(-4rem) translateX(-3.5rem);
 `
 

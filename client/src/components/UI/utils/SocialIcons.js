@@ -2,6 +2,22 @@ import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+//fixed data
+const SOCIALS = [
+    {
+        name: 'facebook-square'
+    },
+    {
+        name: 'youtube-square'
+    },
+    {
+        name: 'twitter-square'
+    },
+    {
+        name: 'instagram'
+    }
+]
+
 //styled components
 const SocialIconsWrapper = styled.div`
     display: flex;
@@ -13,16 +29,15 @@ const SocialIconsWrapper = styled.div`
 
     svg {
         font-size: 3rem;
-        color: ${({theme}) => theme.fontColorLight};
+        color: ${({ theme }) => theme.fontColorLight};
     }
 `
 
 const SocialIcons = () =>
     <SocialIconsWrapper>
-        <FontAwesomeIcon icon={['fab', 'facebook-square']} />
-        <FontAwesomeIcon icon={['fab', 'youtube-square']} />
-        <FontAwesomeIcon icon={['fab', 'twitter-square']} />
-        <FontAwesomeIcon icon={['fab', 'instagram']} />
+        {
+            SOCIALS.map(({ name }) => <FontAwesomeIcon key={name} icon={['fab', `${name}`]} />)
+        }
     </SocialIconsWrapper>
 
 export default SocialIcons

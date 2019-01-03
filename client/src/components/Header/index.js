@@ -6,6 +6,7 @@ import SearchBar from './SearchBar'
 import LogoBar from './LogoBar'
 import MenuBar from './MenuBar'
 
+//styled components
 const Container = styled.div`
      display: flex;
      flex-flow: column;

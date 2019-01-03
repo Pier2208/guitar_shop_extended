@@ -5,8 +5,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
+import ModalManager from './components/ModalManager'
+
 //theme
-import { theme } from './styles/theme'
+import { theme } from './components/UI/styles/theme'
 
 //components (public)
 import Layout from './components/UI/HOC/Layout'
@@ -49,8 +51,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Layout>
         <GlobalStyle />
+        <ModalManager />
         <div>
-          APP
+          HOME
         </div>
       </Layout>
     </ThemeProvider>

@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+//import modalTypes
+import { REGISTER_MODAL} from '../ModalRoot/modalTypes'
+
+//import styled components
+import { LogButton } from '../UI/styledComponents/Buttons'
+
+//import action creators
+import { showModal } from '../../actions/modalActions'
 
 //styled components
 const MenuBarWrapper = styled.div`
@@ -22,7 +32,7 @@ const Container = styled.div`
         font-size: 3rem;
         color: ${({ theme }) => theme.fontColorLight};
         }
-    h3 {
+    h3, span {
         color: ${({ theme }) => theme.fontColorLight};
         font-weight: 300;
     }
@@ -45,10 +55,8 @@ const Categories = styled.div`
 const RegisterLogin = styled.div`
     display: flex;
     align-items: center;
-
-    h3 {
+    span {
         font-size: 1.5rem;
-        margin: 0 1rem;
     }
 `
 
@@ -70,8 +78,10 @@ class MenuBar extends Component {
                         <FontAwesomeIcon icon="comment-dots" className="dialog" />
                     </Categories>
                     <RegisterLogin>
-                        <FontAwesomeIcon icon="user-circle" />
-                        <h3>Sign In or Register</h3>
+                        <FontAwesomeIcon icon="user-circle" aria-hidden/>
+                        <LogButton>Sign In</LogButton>
+                        <span>or</span>
+                        <LogButton onClick={() => this.props.showModal(REGISTER_MODAL, {style: 'registerModal'}) }>Register</LogButton>
                     </RegisterLogin>
                     <Cart>
                         <FontAwesomeIcon icon="shopping-cart" />
@@ -82,4 +92,8 @@ class MenuBar extends Component {
     }
 }
 
-export default MenuBar
+const mapStateToProps = state => ({
+    modal: state.modal
+})
+
+export default connect(mapStateToProps, { showModal })(MenuBar)
