@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import Modal from '../UI/HOC/Modal'
 
@@ -12,9 +13,12 @@ const Register = props => {
   }
   return (
     <Modal onClose={onClose}>
-      hello modal register
     </Modal>
   )
+}
+
+Register.propTypes = {
+  dispatch: PropTypes.func.isRequired
 }
 
 export default connect()(Register)

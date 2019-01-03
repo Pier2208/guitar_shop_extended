@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -90,6 +91,11 @@ class MenuBar extends Component {
             </MenuBarWrapper>
         )
     }
+}
+
+MenuBar.propTypes = {
+    modal: PropTypes.object.isRequired,
+    showModal: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({

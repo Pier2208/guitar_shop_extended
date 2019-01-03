@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 //import specific modal components
 import RegisterModal from '../Register'
@@ -22,5 +23,10 @@ const mapStateToProps = state => ({
     modalType: state.modal.modalType,
     modalProps: state.modal.modalProps
 })
+
+ModalManager.propTypes = {
+    modalType: PropTypes.string.isRequired,
+    modalProps: PropTypes.object.isRequired
+}
 
 export default connect(mapStateToProps)(ModalManager)

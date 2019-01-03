@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 //import styled components
 import { Overlay, ModalBox } from '../styledComponents/Modal'
 
 class Modal extends Component {
 
-    componentDifMount() {
+    componentDidMount() {
         if(this.props.onClose) {
             window.addEventListener('keydown', this.listenKeyboard, true)
         }
@@ -19,7 +20,7 @@ class Modal extends Component {
     }
 
     listenKeyboard = e => {
-        if(e.key === 'Escpae' || e.keyCode === 27) {
+        if(e.key === 'Escape' || e.keyCode === 27) {
             this.props.onClose()
         }
     }
@@ -39,13 +40,18 @@ class Modal extends Component {
                     onClick={this.onModalClick}
                     type={this.props.style}
                     role='dialog'
-                    aria-modal="true"
+                    aria-modal='true'
                 >
                     {this.props.children}
                 </ModalBox>
             </Overlay>
         )
     }
+}
+
+Modal.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    children: Proptypes.node.isRequired
 }
 
 const mapStateToProps = state => ({
