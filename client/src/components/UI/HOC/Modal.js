@@ -13,7 +13,7 @@ class Modal extends Component {
         }
     }
 
-    componentWiiUnmount() {
+    componentWillUnmount() {
         if(this.props.onClose){
             window.removeEventListener('keydown', this.listenKeyboard, true)
         }
@@ -51,7 +51,7 @@ class Modal extends Component {
 
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    children: Proptypes.node.isRequired
+    children: PropTypes.node.isRequired
 }
 
 const mapStateToProps = state => ({

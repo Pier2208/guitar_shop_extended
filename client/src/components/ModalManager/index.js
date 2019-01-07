@@ -25,8 +25,8 @@ const mapStateToProps = state => ({
 })
 
 ModalManager.propTypes = {
-    modalType: PropTypes.string.isRequired,
-    modalProps: PropTypes.object.isRequired
+    modalType: PropTypes.string,
+    modalProps: PropTypes.object
 }
 
 export default connect(mapStateToProps)(ModalManager)
