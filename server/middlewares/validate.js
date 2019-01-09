@@ -6,6 +6,7 @@ const lastname = Joi.string().max(100).required()
 const email = Joi.string().email({ minDomainAtoms: 2 })
 const password = Joi.string().min(8).required()
 const confirmPassword = Joi.any().valid(Joi.ref('password')).required()
+const newsletter = Joi.boolean().required()
 
 
 module.exports = {
@@ -38,7 +39,8 @@ module.exports = {
             lastname,
             email,
             password,
-            confirmPassword
+            confirmPassword,
+            newsletter
         },
         loginSchema: {
             email,

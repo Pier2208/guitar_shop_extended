@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 //action creators
-import { HIDE_MODAL } from '../../actions/types'
+import { hideModal } from '../../actions/modalActions'
 
 //material-ui
 import Divider from '@material-ui/core/Divider'
@@ -24,8 +24,9 @@ const Formater = styled.div`
 const Register = props => {
 
   const onClose = () => {
-    props.dispatch({ type: HIDE_MODAL })
+    props.hideModal()
   }
+
   return (
     <Modal onClose={onClose}>
       <ModalHeader
@@ -40,7 +41,8 @@ const Register = props => {
 }
 
 Register.propTypes = {
-  dispatch: PropTypes.func.isRequired
+  hideModal: PropTypes.func.isRequired
 }
 
-export default connect()(Register)
+
+export default connect(null, { hideModal })(Register)

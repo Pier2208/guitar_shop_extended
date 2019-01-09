@@ -17,7 +17,10 @@ export const LogButton = styled.button`
 `
 
 export const Button = styled.button`
-    ${props => props.BtnFull && css`
+    ${props => props.full && css`
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: ${({ theme }) => theme.primaryColorDark};
         color: ${({ theme }) => theme.fontColorLight};
         font-size: 1.5rem;

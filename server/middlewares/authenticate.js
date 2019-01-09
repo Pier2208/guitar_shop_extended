@@ -23,7 +23,7 @@ const authenticate = async (req, res, next) => {
             .findOne({ _id: ObjectId(decoded.id) })
 
         if(!user) {
-            return res.status(401).json({ error: 'Unauthorized', isAuth: false })
+            return res.status(401).json({ isAuth: false })
         }
         
         //attach user bject to the request

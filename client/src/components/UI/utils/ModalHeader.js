@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import CloseIcon from '@material-ui/icons/Close'
 
 //styled components
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;

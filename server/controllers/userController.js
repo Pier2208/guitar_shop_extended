@@ -14,7 +14,7 @@ module.exports = {
                 return res.status(400).json(req.errors)
 
             //get data from register form
-            const { firstname, lastname, email, password } = req.body
+            const { firstname, lastname, email, password, newsletter } = req.body
 
             //check if email not already in dababase
             const existingDoc = await db.getDb()
@@ -38,12 +38,12 @@ module.exports = {
                     email: email.toLowerCase().trim(),
                     password: hash
                 },
+                newsletter,
                 role: 'default',
                 cart: [],
                 wishlist: [],
                 history: [],
-                reviews: [],
-                avatar: ''
+                reviews: []
             }
 
             //save new user
@@ -59,10 +59,10 @@ module.exports = {
             const token = await jwt.sign(payload, process.env.SECRET, options)
 
             //store token in cookie
-            res.cookie('x_auth', token).status(200).json({ success: 'user registered' })
+            res.cookie('x_auth', token).status(200).json({ success: true })
 
         } catch (err) {
-            return res.status(500).json({ error: 'Creating the user account failed', err })
+            return res.status(500).json({ error: 'An error occured during the creation of the account'})
         }
     },
 
@@ -114,7 +114,7 @@ module.exports = {
             lastname: req.user.local.lastname,
             email: req.user.local.email,
             role: req.user.role,
-            role: 'default',
+            newsletter: req.body.newsletter,
             cart: [],
             wishlist: [],
             history: [],

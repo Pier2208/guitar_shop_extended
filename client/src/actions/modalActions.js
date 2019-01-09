@@ -9,3 +9,7 @@ export const showModal = (modalType, modalProps={}) => ({
     modalType,
     modalProps
 })
+
+export const hideModal = () => ({
+    type: HIDE_MODAL
+})

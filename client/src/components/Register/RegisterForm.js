@@ -1,19 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
+
+import { withRouter } from 'react-router-dom'
+
+//import action creators
+import { registerUser } from '../../actions/userActions'
 
 //Formik and validation library
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 
-//Material-ui
+//Material-ui / FontAwesome
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import { HalfCircleSpinner } from 'react-epic-spinners'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //imported styled components
 import { Button } from '../UI/styledComponents/Buttons'
+
 
 //styled components
 const Form = styled.form`
@@ -82,10 +91,32 @@ const ErrorMessage = styled.div`
   color: red;
 `
 
+const FormFailure = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 3.5rem;
+    width: 100%;
+    height: 4rem;
+    background: ${({ theme }) => theme.alert};
+    position: relative;
+    top: -3rem;
+    left: 0;
+    svg,
+    h3 {
+        font-size: 1.6rem;
+        color: ${({ theme }) => theme.fontColorLight};
+        margin: 0 .5rem;
+        font-weight: 300;
+    }
+`
 
 class RegisterForm extends Component {
+
     render() {
         const { classes } = this.props
+        const { processing, errorMessage } = this.props.user
+
         return (
             <Formik
                 initialValues={{
@@ -112,10 +143,14 @@ class RegisterForm extends Component {
                             .required('Password is required'),
                         confirmPassword: Yup.string()
                             .oneOf([Yup.ref('password')], 'Password must match')
-                            .required('Please confirm password')
+                            .required('Please confirm password'),
+                        newsletter: Yup.boolean()
                     })
                 }
-                onSubmit={values => console.log(values)}
+                onSubmit={(values, { resetForm }) => {
+                    this.props.registerUser(values)
+                    resetForm()
+                }}
             >
 
                 {({
@@ -124,10 +159,18 @@ class RegisterForm extends Component {
                     touched,
                     handleChange,
                     handleSubmit,
-                    handleBlur,
-                    isSubmitting
+                    handleBlur
                 }) => (
                         <Form onSubmit={handleSubmit} noValidate>
+                            {
+                                errorMessage ?
+                                    <FormFailure>
+                                        <FontAwesomeIcon icon="exclamation-triangle" />
+                                        <h3>{errorMessage}</h3>
+                                    </FormFailure>
+                                    :
+                                    null
+                            }
                             <RequiredFields>* Required Fields</RequiredFields>
                             <div>
                                 <Input
@@ -296,10 +339,10 @@ class RegisterForm extends Component {
 
                             <Wrapper>
                                 <FormControlLabel
-                                    classes={{label: classes.label}}
+                                    classes={{ label: classes.label }}
                                     control={
                                         <Checkbox
-                                            style={{color: '#3A2D32'}}
+                                            style={{ color: '#3A2D32' }}
                                             checked={values.newsletter}
                                             onChange={handleChange}
                                             disableRipple
@@ -308,14 +351,19 @@ class RegisterForm extends Component {
                                         />
                                     }
                                     label="Subscribe to the newsletter"
-                                    
+
                                 />
                             </Wrapper>
 
-                            <Wrapper>
-                                <Button BtnFull>Register</Button>
+                            <Wrapper style={{ display: 'flex', alignItems: 'center' }}>
+                                <Button
+                                    type="submit"
+                                    full
+                                >
+                                    REGISTER
+                                </Button>
+                                {processing && <HalfCircleSpinner color='#000' size={22} style={{ marginLeft: '1rem' }} />}
                             </Wrapper>
-
                         </Form>
                     )}
             </Formik>
@@ -323,5 +371,8 @@ class RegisterForm extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    user: state.user
+})
 
-export default withStyles(styles)(RegisterForm)
+export default connect(mapStateToProps, { registerUser })(withRouter(withStyles(styles)(RegisterForm)))

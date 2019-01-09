@@ -26,6 +26,6 @@ export const ModalBox = styled.div`
         margin: 4% auto; /* 5% from the top and centered */
         outline: none;
         width: 23%;
-        height: 85vh;
+        height: auto;
   `}
 `
