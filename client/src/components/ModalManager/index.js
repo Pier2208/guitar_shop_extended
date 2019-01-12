@@ -15,7 +15,7 @@ const ModalManager = ({ modalType, modalProps }) => {
     }
     
     const SpecificModal = MODAL_COMPONENTS[modalType]
-    return <SpecificModal {...modalProps} />
+    return <SpecificModal {...modalProps}  />
 
 }
 

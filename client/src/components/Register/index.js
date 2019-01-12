@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import { Spring, config } from 'react-spring'
 
 //action creators
 import { hideModal } from '../../actions/modalActions'
@@ -28,15 +29,26 @@ const Register = props => {
   }
 
   return (
-    <Modal onClose={onClose}>
-      <ModalHeader
-        onClose={onClose}
-        title="Register with The Guitar Shop" />
-      <Formater>
-        <RegisterForm />
-      </Formater>
-      <Divider variant="middle" />
-    </Modal>
+    <Spring
+      config={config.default}
+      from={{ opacity: 0 }}
+      to={{ opacity: 1 }}
+    >
+      {
+        props => (
+          <div style={props}>
+            <Modal onClose={onClose}>
+              <ModalHeader
+                onClose={onClose}
+                title="Register with The Guitar Shop" />
+              <Formater>
+                <RegisterForm />
+              </Formater>
+              <Divider variant="middle" />
+            </Modal>
+          </div>)
+      }
+    </Spring>
   )
 }
 

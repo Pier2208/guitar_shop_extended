@@ -5,10 +5,11 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //import modalTypes
-import { REGISTER_MODAL} from '../ModalManager/modalTypes'
+import { REGISTER_MODAL } from '../ModalManager/modalTypes'
 
 //import styled components
 import { LogButton } from '../UI/styledComponents/Buttons'
+import HamburgerMenu from '../UI/utils/HamburgerMenu'
 
 //import action creators
 import { showModal } from '../../actions/modalActions'
@@ -19,6 +20,8 @@ const MenuBarWrapper = styled.div`
     width: 100%;
     height: 6rem;
     background: ${({ theme }) => theme.secondaryColorDark};
+    position: relative;
+     z-index: 150;
 `
 
 const Container = styled.div`
@@ -30,7 +33,7 @@ const Container = styled.div`
     margin: 0 auto;
 
     svg {
-        font-size: 3rem;
+        font-size: 3.2rem;
         color: ${({ theme }) => theme.fontColorLight};
         }
     h3, span {
@@ -48,6 +51,7 @@ const Categories = styled.div`
     svg.dialog {
         transform: translateY(-.8rem)
     }
+
     h3 {
         font-size: 2rem;
         margin: 0 1rem 0 1.5rem;
@@ -74,15 +78,17 @@ class MenuBar extends Component {
             <MenuBarWrapper>
                 <Container>
                     <Categories>
-                        <FontAwesomeIcon icon="bars" />
+                        <HamburgerMenu 
+                            toggleMenu={this.props.toggleMenu}
+                            isMenuOpen={this.props.isMenuOpen} />
                         <h3>What are you looking for today?</h3>
                         <FontAwesomeIcon icon="comment-dots" className="dialog" />
                     </Categories>
                     <RegisterLogin>
-                        <FontAwesomeIcon icon="user-circle" aria-hidden/>
+                        <FontAwesomeIcon icon="user-circle" aria-hidden />
                         <LogButton>Sign In</LogButton>
                         <span>or</span>
-                        <LogButton onClick={() => this.props.showModal(REGISTER_MODAL, {style: 'registerModal'}) }>Register</LogButton>
+                        <LogButton onClick={() => this.props.showModal(REGISTER_MODAL, { style: 'registerModal' })}>Register</LogButton>
                     </RegisterLogin>
                     <Cart>
                         <FontAwesomeIcon icon="shopping-cart" />

@@ -35,7 +35,7 @@ class Modal extends Component {
 
     render() {
         return (
-            <Overlay onClick={this.onOverlayClick}>
+            <Overlay type={this.props.style} onClick={this.onOverlayClick}>
                 <ModalBox
                     onClick={this.onModalClick}
                     type={this.props.style}

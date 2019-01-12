@@ -7,6 +7,9 @@ const LogoBarWrapper = styled.div`
      display: flex;
      width: 100%;
      height: 23rem;
+     background: white;
+     position: relative;
+     z-index: 150;
  `
 
 const Container = styled.div`
