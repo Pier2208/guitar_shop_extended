@@ -13,7 +13,7 @@ import Divider from '@material-ui/core/Divider'
 //imported components
 import Modal from '../UI/HOC/Modal'
 import ModalHeader from '../UI/utils/ModalHeader'
-import RegisterForm from './RegisterForm'
+import LoginForm from './LoginForm'
 
 //styled components
 const Formater = styled.div`
@@ -22,7 +22,7 @@ const Formater = styled.div`
     margin: 3rem 0;
 `
 
-const Register = props => {
+const Login = props => {
 
   const onClose = () => {
     props.hideModal()
@@ -40,9 +40,9 @@ const Register = props => {
             <Modal onClose={onClose}>
               <ModalHeader
                 onClose={onClose}
-                title="Register with The Guitar Shop" />
+                title="Please sign in to the Guitar Shop" />
               <Formater>
-                <RegisterForm />
+                <LoginForm />
               </Formater>
               <Divider variant="middle" />
             </Modal>
@@ -52,9 +52,9 @@ const Register = props => {
   )
 }
 
-Register.propTypes = {
+Login.propTypes = {
   hideModal: PropTypes.func.isRequired
 }
 
 
-export default connect(null, { hideModal })(Register)
+export default connect(null, { hideModal })(Login)

@@ -1,10 +1,11 @@
-import { REGISTER_USER } from './types'
+import { REGISTER_USER, LOGIN_USER } from './types'
 
 
 //actions related to register user
-export const registerUser = (formData) => ({
+export const registerUser = (formData, resetForm) => ({
     type: REGISTER_USER,
-    formData
+    formData,
+    resetForm
 })
 
 // export const registerUserSuccess = data => ({
@@ -16,3 +17,9 @@ export const registerUser = (formData) => ({
 //     type: REGISTER_USER_FAILURE,
 //     error
 // })
+
+export const loginUser = (formData, resetForm) => ({
+    type: LOGIN_USER,
+    formData,
+    resetForm
+})

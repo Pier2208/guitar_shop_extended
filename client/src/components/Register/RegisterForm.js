@@ -115,7 +115,7 @@ class RegisterForm extends Component {
 
     render() {
         const { classes } = this.props
-        const { processing, errorMessage } = this.props.user
+        const { processing, errorMessage, internalError } = this.props.user
 
         return (
             <Formik
@@ -148,8 +148,7 @@ class RegisterForm extends Component {
                     })
                 }
                 onSubmit={(values, { resetForm }) => {
-                    this.props.registerUser(values)
-                    resetForm()
+                    this.props.registerUser(values, resetForm)
                 }}
             >
 
@@ -163,10 +162,10 @@ class RegisterForm extends Component {
                 }) => (
                         <Form onSubmit={handleSubmit} noValidate>
                             {
-                                errorMessage ?
+                                internalError ?
                                     <FormFailure>
                                         <FontAwesomeIcon icon="exclamation-triangle" />
-                                        <h3>{errorMessage}</h3>
+                                        <h3>{internalError}</h3>
                                     </FormFailure>
                                     :
                                     null
@@ -269,6 +268,7 @@ class RegisterForm extends Component {
                                     }}
                                 />
                                 {touched.email && errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                                {errorMessage && <ErrorMessage>{errorMessage.includes('Email') && errorMessage}</ErrorMessage>}
                             </div>
 
                             <div>
@@ -360,9 +360,8 @@ class RegisterForm extends Component {
                                     type="submit"
                                     full
                                 >
-                                    REGISTER
+                                    {processing ? <HalfCircleSpinner color='#fff' size={22} /> : 'REGISTER'}
                                 </Button>
-                                {processing && <HalfCircleSpinner color='#000' size={22} style={{ marginLeft: '1rem' }} />}
                             </Wrapper>
                         </Form>
                     )}

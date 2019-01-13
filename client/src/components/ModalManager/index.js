@@ -4,9 +4,11 @@ import PropTypes from 'prop-types'
 
 //import specific modal components
 import RegisterModal from '../Register'
+import LoginModal from '../Login'
 
 const MODAL_COMPONENTS = {
-    REGISTER_MODAL: RegisterModal
+    REGISTER_MODAL: RegisterModal,
+    LOGIN_MODAL: LoginModal
 }
 
 const ModalManager = ({ modalType, modalProps }) => {

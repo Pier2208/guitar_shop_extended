@@ -52,7 +52,7 @@ const App = () => {
       <Layout>
         <GlobalStyle />
         <ModalManager />
-        <div>
+        <div style={{position: 'relative', zIndex: -10}}>
           HOME
         </div>
       </Layout>

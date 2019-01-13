@@ -11,9 +11,8 @@ import MainMenu from './MainMenu'
 const Container = styled.div`
      display: flex;
      flex-flow: column;
-     width: 100%;
      position: relative;
-     z-index: 150;
+     width: 100%;
  `
 
 class Header extends Component {

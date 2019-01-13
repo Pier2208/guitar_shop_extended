@@ -12,8 +12,7 @@ const SearchBarWrapper = styled.div`
     width: 100%;
     height: 5rem;
     background: ${({ theme }) => theme.primaryColorDark};
-    position: relative;
-     z-index: 250;
+    
 `
 const Container = styled.div`
     display: flex;

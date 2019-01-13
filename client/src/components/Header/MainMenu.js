@@ -1,17 +1,17 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 
 
 //styled components
 const MenuWrapper = styled.div`
     width: 100%;
-    height: 32rem;
+    height: 35rem;
     left: 0;
     position: absolute;
-    transition: all 0.4s ease-out;
+    z-index: -1;
+    transition: all 0.4s ease-in-out;
     background: white;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
-    z-index: 1;
 
     &.hidden {
       opacity: 0;
@@ -20,7 +20,7 @@ const MenuWrapper = styled.div`
 
     &.visible {
       opacity: 1;
-      bottom: -32rem;
+      bottom: -35rem;
     }
 `
 
@@ -45,7 +45,7 @@ const MenuCard = styled.div`
 const MenuCardHead = styled.h2`
     margin: 3rem 0 3rem 0;
     color: ${({ theme }) => theme.fontColorLight};
-    background: ${({ theme }) => theme.fontColorDark};
+    background: ${({ theme }) => theme.primaryColorDark};
     width: fit-content;
     padding: 1rem 2rem;
     border-radius: 5px;
@@ -59,11 +59,11 @@ const MenuCardImage = styled.div`
     width: auto;
     height: auto;
     img {
-      width: 30rem;
+      width: 25rem;
       display: block;
     }
     img.amps_effects {
-      width: 20rem;
+      width: 25rem;
     }
 `
 
@@ -132,7 +132,7 @@ const CATEGORIES = [
     ]
   },
   {
-    name: 'Browse All Amps & Effects',
+    name: 'Browse All Amps',
     image: 'https://res.cloudinary.com/dwhnxncff/image/upload/v1547319912/Guitar_shop_static_images/cat_amp.png',
     subCat: [
       {
@@ -142,7 +142,13 @@ const CATEGORIES = [
       {
         name: 'Bass Amps',
         linkTo: ''
-      },
+      }
+    ]
+  },
+  {
+    name: 'Browse All Effects',
+    image: 'https://res.cloudinary.com/dwhnxncff/image/upload/v1547340477/Guitar_shop_static_images/cat_effects.png',
+    subCat: [
       {
         name: 'Guitar Pedals',
         linkTo: ''
@@ -152,7 +158,7 @@ const CATEGORIES = [
         linkTo: ''
       }
     ]
-  }
+  },
 ]
 
 

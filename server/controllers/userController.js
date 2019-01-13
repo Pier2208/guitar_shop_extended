@@ -59,7 +59,7 @@ module.exports = {
             const token = await jwt.sign(payload, process.env.SECRET, options)
 
             //store token in cookie
-            res.cookie('x_auth', token).status(200).json({ success: true })
+            res.cookie('x_auth', token).status(200).json(true)
 
         } catch (err) {
             return res.status(500).json({ error: 'An error occured during the creation of the account'})
@@ -96,15 +96,15 @@ module.exports = {
             const token = await jwt.sign(payload, process.env.SECRET, options)
 
             //store token in cookie
-            res.cookie('x_auth', token).status(200).json({ success: 'user logged in' })
+            res.cookie('x_auth', token).status(200).json(true)
 
         } catch (err) {
-            return res.status(500).json({ error: 'Login failed', err })
+            return res.status(500).json({ message: 'Something went wrong with our server. Please retry to login in a few minutes.' })
         }
     },
 
     logoutUser: (req, res) => {
-        res.clearCookie('x_auth').json({ success: 'user logged out' })
+        res.clearCookie('x_auth').json({ success: true })
     },
 
     authUser: (req, res) => {

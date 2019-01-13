@@ -4,7 +4,7 @@ import { css } from 'styled-components'
 
 export const Overlay = styled.div`
     position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    z-index: 1000 !important; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -16,11 +16,11 @@ export const Overlay = styled.div`
 export const ModalBox = styled.div`
     ${props => props.type === 'loginModal' && css`
         background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        border: 1px solid #888;
-        width: 80%;
+        margin: 5% auto; /* 5% from the top and centered */
+        outline: none;
+        width: 23%;
         height: 50rem;
-        z-index: 10000;
+        z-index: 1000;
   `}
     ${props => props.type === 'registerModal' && css`
         background: #fff;
@@ -28,6 +28,6 @@ export const ModalBox = styled.div`
         outline: none;
         width: 23%;
         height: auto;
-        z-index: 10000;
+        z-index: 1100 !important;
   `}
 `

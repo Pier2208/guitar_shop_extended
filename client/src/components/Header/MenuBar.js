@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //import modalTypes
-import { REGISTER_MODAL } from '../ModalManager/modalTypes'
+import { REGISTER_MODAL, LOGIN_MODAL } from '../ModalManager/modalTypes'
 
 //import styled components
 import { LogButton } from '../UI/styledComponents/Buttons'
@@ -20,8 +20,7 @@ const MenuBarWrapper = styled.div`
     width: 100%;
     height: 6rem;
     background: ${({ theme }) => theme.secondaryColorDark};
-    position: relative;
-     z-index: 150;
+    
 `
 
 const Container = styled.div`
@@ -86,7 +85,7 @@ class MenuBar extends Component {
                     </Categories>
                     <RegisterLogin>
                         <FontAwesomeIcon icon="user-circle" aria-hidden />
-                        <LogButton>Sign In</LogButton>
+                        <LogButton onClick={() => this.props.showModal(LOGIN_MODAL, { style: 'loginModal' })}>Sign In</LogButton>
                         <span>or</span>
                         <LogButton onClick={() => this.props.showModal(REGISTER_MODAL, { style: 'registerModal' })}>Register</LogButton>
                     </RegisterLogin>

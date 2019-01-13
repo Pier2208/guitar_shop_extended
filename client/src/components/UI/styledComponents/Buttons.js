@@ -21,6 +21,7 @@ export const Button = styled.button`
         display: flex;
         align-items: center;
         justify-content: center;
+        min-width: 10.5rem;
         background: ${({ theme }) => theme.primaryColorDark};
         color: ${({ theme }) => theme.fontColorLight};
         font-size: 1.5rem;
