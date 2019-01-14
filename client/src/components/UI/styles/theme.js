@@ -4,7 +4,7 @@ export const theme = {
     secondaryColorDark: '#BA3F1D',
     fontColorLight: '#FFF9FB', // snow white
     fontColorDark: '#0D1317', 
-    alert: '#F44336', //red
+    alert: '#cc0000', //red
     success: '#43A536',
 
 }

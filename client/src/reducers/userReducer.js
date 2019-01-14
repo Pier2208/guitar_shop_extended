@@ -4,7 +4,7 @@ import { REGISTER_USER,
          LOGIN_USER,
          LOGIN_USER_SUCCESS,
          LOGIN_USER_FAILURE,
-         LOGIN_USER_FAILURE_INTERNAL } from '../actions/types'
+         USER_RESET } from '../actions/types'
 
 const INITIAL_STATE = {}
 
@@ -39,7 +39,6 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 loginSuccess: action.payload,
                 errorMessage: '',
-                internalError: '',
                 processing: false
             }
         case LOGIN_USER_FAILURE:
@@ -49,12 +48,12 @@ export default (state = INITIAL_STATE, action) => {
                 loginSuccess: false,
                 processing: false
             }
-        case LOGIN_USER_FAILURE_INTERNAL:
+        case USER_RESET:
             return {
                 ...state,
                 loginSuccess: false,
                 processing: false,
-                internalError: action.payload
+                errorMessage: ''
             }
         default:
             return state

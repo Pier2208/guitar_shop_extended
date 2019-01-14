@@ -107,7 +107,7 @@ class LoginForm extends Component {
 
     render() {
         const { classes } = this.props
-        const { processing, errorMessage, internalError } = this.props.user
+        const { processing, errorMessage } = this.props.user
 
         return (
             <Formik
@@ -140,10 +140,10 @@ class LoginForm extends Component {
                 }) => (
                         <Form onSubmit={handleSubmit} noValidate>
                             {
-                                internalError ?
+                                errorMessage?
                                     <FormFailure>
                                         <FontAwesomeIcon icon="exclamation-triangle" />
-                                        <h3>{internalError}</h3>
+                                        <h3>Please review the errors below...</h3>
                                     </FormFailure>
                                     :
                                     null
@@ -159,7 +159,7 @@ class LoginForm extends Component {
                                     value={values.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    error={touched.email && errors.email ? true : false}
+                                    error={(touched.email && errors.email) || errorMessage ? true : false}
                                     margin='normal'
                                     InputLabelProps={{
                                         classes: {
@@ -193,7 +193,7 @@ class LoginForm extends Component {
                                     value={values.password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    error={touched.password && errors.password ? true : false}
+                                    error={(touched.password && errors.password) || errorMessage ? true : false}
                                     margin='normal'
                                     InputLabelProps={{
                                         classes: {
@@ -235,8 +235,7 @@ class LoginForm extends Component {
 LoginForm.propTypes = {
     classes: PropTypes.object.isRequired,
     processing: PropTypes.bool,
-    errorMessage: PropTypes.string,
-    internalError: PropTypes.string
+    errorMessage: PropTypes.string
 }
 
 const mapStateToProps = state => ({

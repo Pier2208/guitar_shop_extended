@@ -7,7 +7,6 @@ import {
     REGISTER_USER_FAILURE,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAILURE,
-    LOGIN_USER_FAILURE_INTERNAL,
     HIDE_MODAL
 } from '../actions/types'
 
@@ -38,9 +37,6 @@ export function* loginUserSaga(action) {
         yield put({ type: HIDE_MODAL })
 
     } catch (error) {
-        if (error.response.status >= 500) {
-            yield put({ type: LOGIN_USER_FAILURE_INTERNAL, payload: `${error.response.status} - ${error.response.statusText}`})
-        }
         yield put({ type: LOGIN_USER_FAILURE, payload: error.response.data.email || error.response.data.password })
     }
 } 

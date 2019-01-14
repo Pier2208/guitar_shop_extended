@@ -104,7 +104,7 @@ const FormFailure = styled.div`
     left: 0;
     svg,
     h3 {
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         color: ${({ theme }) => theme.fontColorLight};
         margin: 0 .5rem;
         font-weight: 300;
@@ -115,7 +115,7 @@ class RegisterForm extends Component {
 
     render() {
         const { classes } = this.props
-        const { processing, errorMessage, internalError } = this.props.user
+        const { processing, errorMessage } = this.props.user
 
         return (
             <Formik
@@ -162,10 +162,10 @@ class RegisterForm extends Component {
                 }) => (
                         <Form onSubmit={handleSubmit} noValidate>
                             {
-                                internalError ?
+                                errorMessage ?
                                     <FormFailure>
                                         <FontAwesomeIcon icon="exclamation-triangle" />
-                                        <h3>{internalError}</h3>
+                                        <h3>Please review the errors below...</h3>
                                     </FormFailure>
                                     :
                                     null
@@ -247,7 +247,7 @@ class RegisterForm extends Component {
                                     value={values.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    error={touched.email && errors.email ? true : false}
+                                    error={(touched.email && errors.email) || errorMessage ? true : false}
                                     margin='normal'
                                     InputLabelProps={{
                                         classes: {
@@ -371,7 +371,14 @@ class RegisterForm extends Component {
 }
 
 const mapStateToProps = state => ({
-    user: state.user
+    user: state.user,
 })
+
+RegisterForm.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    classes: PropTypes.object.isRequired,
+    processing: PropTypes.bool,
+    errorMessage: PropTypes.string
+}
 
 export default connect(mapStateToProps, { registerUser })(withRouter(withStyles(styles)(RegisterForm)))

@@ -6,6 +6,7 @@ import { Spring, config } from 'react-spring'
 
 //action creators
 import { hideModal } from '../../actions/modalActions'
+import { userReset } from '../../actions/userActions'
 
 //material-ui
 import Divider from '@material-ui/core/Divider'
@@ -22,10 +23,11 @@ const Formater = styled.div`
     margin: 3rem 0;
 `
 
-const Login = props => {
+const Login = ({ hideModal, userReset}) => {
 
   const onClose = () => {
-    props.hideModal()
+    hideModal()
+    userReset()
   }
 
   return (
@@ -53,8 +55,9 @@ const Login = props => {
 }
 
 Login.propTypes = {
-  hideModal: PropTypes.func.isRequired
+  hideModal: PropTypes.func.isRequired,
+  userReset: PropTypes.func.isRequired
 }
 
 
-export default connect(null, { hideModal })(Login)
+export default connect(null, { hideModal, userReset })(Login)
