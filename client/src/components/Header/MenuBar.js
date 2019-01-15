@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { REGISTER_MODAL, LOGIN_MODAL } from '../ModalManager/modalTypes'
 
 //import styled components
-import { LogButton } from '../UI/styledComponents/Buttons'
+import { LogButton } from '../../styles/styledComponents'
 import HamburgerMenu from '../UI/utils/HamburgerMenu'
 
 //import action creators

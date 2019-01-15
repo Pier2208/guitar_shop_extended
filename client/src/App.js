@@ -8,7 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import ModalManager from './components/ModalManager'
 
 //theme
-import { theme } from './components/UI/styles/theme'
+import { theme } from './styles/theme'
 
 //components (public)
 import Layout from './components/UI/HOC/Layout'

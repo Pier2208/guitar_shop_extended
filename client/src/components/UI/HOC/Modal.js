@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 //import styled components
-import { Overlay, ModalBox } from '../styledComponents/Modal'
+import { Overlay, ModalBox } from '../../../styles/styledComponents'
 
 class Modal extends Component {
 

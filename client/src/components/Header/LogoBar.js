@@ -8,8 +8,6 @@ const LogoBarWrapper = styled.div`
      width: 100%;
      height: 23rem;
      background: white;
-     
-     
  `
 
 const Container = styled.div`

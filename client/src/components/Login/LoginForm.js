@@ -19,7 +19,7 @@ import { HalfCircleSpinner } from 'react-epic-spinners'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //imported styled components
-import { Button } from '../UI/styledComponents/Buttons'
+import { Button } from '../../styles/styledComponents'
 
 
 //styled components
@@ -232,14 +232,14 @@ class LoginForm extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    user: state.user
+})
+
 LoginForm.propTypes = {
     classes: PropTypes.object.isRequired,
     processing: PropTypes.bool,
     errorMessage: PropTypes.string
 }
-
-const mapStateToProps = state => ({
-    user: state.user
-})
 
 export default connect(mapStateToProps, { loginUser })(withRouter(withStyles(styles)(LoginForm)))

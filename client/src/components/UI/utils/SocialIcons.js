@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { below } from '../../../styles/mediaQueries'
+
 //fixed data
 const SOCIALS = [
     {
@@ -31,6 +33,10 @@ const SocialIconsWrapper = styled.div`
         font-size: 3rem;
         color: ${({ theme }) => theme.fontColorLight};
     }
+
+    ${below.medium`
+        display: none;
+    `}
 `
 
 const SocialIcons = () =>
