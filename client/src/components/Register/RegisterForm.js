@@ -49,7 +49,7 @@ const Input = styled(TextField)`
     border-radius: 1rem;
 
    input:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.fontColorLight} inset;
+        -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.color.fontLight} inset;
 }
 `
 const styles = {
@@ -98,14 +98,14 @@ const FormFailure = styled.div`
     padding-left: 3.5rem;
     width: 100%;
     height: 4rem;
-    background: ${({ theme }) => theme.alert};
+    background: ${({ theme }) => theme.color.alert};
     position: relative;
     top: -3rem;
     left: 0;
     svg,
     h3 {
         font-size: 1.3rem;
-        color: ${({ theme }) => theme.fontColorLight};
+        color: ${({ theme }) => theme.color.fontLight};
         margin: 0 .5rem;
         font-weight: 300;
     }

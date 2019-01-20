@@ -19,7 +19,7 @@ const MenuBarWrapper = styled.div`
     display: flex;
     width: 100%;
     height: 6rem;
-    background: ${({ theme }) => theme.secondaryColorDark};
+    background: ${({ theme }) => theme.color.secondaryDark};
     
 `
 
@@ -30,13 +30,12 @@ const Container = styled.div`
     width: 90%;
     height: 100%;
     margin: 0 auto;
+    color: ${({ theme }) => theme.color.fontLight};
 
     svg {
         font-size: 3.2rem;
-        color: ${({ theme }) => theme.fontColorLight};
         }
     h3, span {
-        color: ${({ theme }) => theme.fontColorLight};
         font-weight: 300;
     }
 `

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { elevation } from '../../styles'
 
 
 //styled components
@@ -11,8 +12,8 @@ const MenuWrapper = styled.div`
     z-index: -1;
     transition: all 0.4s ease-in-out;
     background: white;
-    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
-
+    ${elevation[3]};
+  
     &.hidden {
       opacity: 0;
       bottom: 60rem;
@@ -44,8 +45,8 @@ const MenuCard = styled.div`
 `
 const MenuCardHead = styled.h2`
     margin: 3rem 0 3rem 0;
-    color: ${({ theme }) => theme.fontColorLight};
-    background: ${({ theme }) => theme.primaryColorDark};
+    color: ${({ theme }) => theme.color.fontLight};
+    background: ${({ theme }) => theme.color.primaryDark};
     width: fit-content;
     padding: 1rem 2rem;
     border-radius: 5px;
@@ -85,7 +86,7 @@ const MenuCardLink = styled.button`
     border-radius: 5px;
 
     :hover {
-      background: ${({ theme }) => theme.secondaryColorDark};
+      background: ${({ theme }) => theme.color.secondaryDark};
       transform: rotate(-2deg) scale(1.1) translate(1.5rem, -.5rem);
       color: white;
       border: none;

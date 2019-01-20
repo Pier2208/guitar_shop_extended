@@ -9,12 +9,12 @@ export const Wrapper = styled.div`
     justify-content: space-around;
     width: 100%;
     height: 5rem;
-    background-color: ${({ theme }) => theme.primaryColorDark};
+    background-color: ${({ theme }) => theme.color.primaryDark};
     margin-bottom: 3rem;
 `
 
 const Title = styled.h2`
-    color: ${({ theme }) => theme.fontColorLight};
+    color: ${({ theme }) => theme.color.fontLight};
     font-size: 2rem;
     font-weight: 300;
 `
@@ -23,7 +23,7 @@ const CloseButton = styled.div`
     width: 2rem;
     height: 2rem;
     background: transparent;
-    color: ${({ theme }) => theme.fontColorLight};
+    color: ${({ theme }) => theme.color.fontLight};
     svg{
         &:hover {
             transform: scale(1.1);

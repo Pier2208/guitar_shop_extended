@@ -11,7 +11,7 @@ import Questions from '../UI/utils/Questions'
 const SearchBarWrapper = styled.div`
     width: 100%;
     height: 5rem;
-    background: ${({ theme }) => theme.primaryColorDark};
+    background: ${({ theme }) => theme.color.primaryDark};
     
 `
 const Container = styled.div`

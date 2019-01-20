@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -6,7 +6,8 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
 
 //import action creators
-import { loginUser } from '../../actions/userActions'
+import { loginUser, registerUserViaLoginModal } from '../../actions/userActions'
+import { hideModal } from '../../actions/modalActions'
 
 //Formik and validation library
 import { Formik } from 'formik'
@@ -20,6 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 //imported styled components
 import { Button } from '../../styles/styledComponents'
+import LoginOptions from './LoginOptions'
 
 
 //styled components
@@ -41,13 +43,24 @@ const Input = styled(TextField)`
     border-radius: 1rem;
 
    input:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.fontColorLight} inset;
+        -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.color.fontLight} inset;
 }
 `
+const Label = styled.label`
+    width: 35rem;
+    height: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+
+    &.loginOption {
+        margin: 2rem 0 0.5rem 0;
+    }
+`
+
 const styles = {
     input: {
         fontSize: '1.4rem', //while yping inside the form input
-        fontFamily: 'Roboto'
+        fontFamily: 'Roboto',
     },
     formControl: {
         fontSize: '1.3rem',
@@ -76,6 +89,7 @@ const styles = {
     }
 }
 
+
 const ErrorMessage = styled.div`
   width: 35rem;
   margin: 0;
@@ -90,14 +104,14 @@ const FormFailure = styled.div`
     padding-left: 3.5rem;
     width: 100%;
     height: 4rem;
-    background: ${({ theme }) => theme.alert};
+    background: ${({ theme }) => theme.color.alert};
     position: relative;
     top: -3rem;
     left: 0;
     svg,
     h3 {
         font-size: 1.3rem;
-        color: ${({ theme }) => theme.fontColorLight};
+        color: ${({ theme }) => theme.color.fontLight};
         margin: 0 .5rem;
         font-weight: 300;
     }
@@ -105,8 +119,17 @@ const FormFailure = styled.div`
 
 class LoginForm extends Component {
 
+    state = {
+        hasPassword: 'true'
+    }
+
+    handleChange = e => {
+        this.setState({ hasPassword: e.target.value })
+    }
+
     render() {
-        const { classes } = this.props
+        const { hasPassword } = this.state
+        const { classes, loginUser, hideModal, registerUserViaLoginModal } = this.props
         const { processing, errorMessage } = this.props.user
 
         return (
@@ -115,19 +138,35 @@ class LoginForm extends Component {
                     email: '',
                     password: ''
                 }}
+
                 validationSchema={
-                    Yup.object().shape({
-                        email: Yup.string()
-                            .email('Please enter a valid email')
-                            .required('Email is required'),
-                        password: Yup.string()
-                            .min(8, 'Pasword must be at least 8 characters')
-                            .required('Password is required')
-                    })
+                    hasPassword === 'true' ?
+                        Yup.object().shape({
+                            email: Yup.string()
+                                .email('Please enter a valid email')
+                                .required('Email is required'),
+                            password: Yup.string()
+                                .min(8, 'Pasword must be at least 8 characters')
+                                .required('Password is required')
+                        })
+                        :
+                        Yup.object().shape({
+                            email: Yup.string()
+                                .email('Please enter a valid email')
+                                .required('Email is required')
+                        })
                 }
-                onSubmit={(values, { resetForm }) => {
-                    this.props.loginUser(values, resetForm)
-                }}
+
+                onSubmit={
+                    //if radio btn 'Ihave  a password' is clicked, associate this function to the CONTINUE BTN
+                    hasPassword === 'true' ?
+                        (values, { resetForm }) => {
+                            loginUser(values, resetForm)
+                        }
+                        :
+                        //otherwise, CONTINUE BTN will will trigger this function
+                        values => registerUserViaLoginModal(values)
+                }
             >
 
                 {({
@@ -140,7 +179,7 @@ class LoginForm extends Component {
                 }) => (
                         <Form onSubmit={handleSubmit} noValidate>
                             {
-                                errorMessage?
+                                errorMessage ?
                                     <FormFailure>
                                         <FontAwesomeIcon icon="exclamation-triangle" />
                                         <h3>Please review the errors below...</h3>
@@ -148,81 +187,97 @@ class LoginForm extends Component {
                                     :
                                     null
                             }
+                            <Label>1. What is your email address?</Label>
+                            <Input
+                                type='email'
+                                autoComplete='off'
+                                label="Email"
+                                name='email'
+                                variant='outlined'
+                                value={values.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                error={(touched.email && errors.email) || errorMessage ? true : false}
+                                margin='normal'
+                                InputLabelProps={{
+                                    classes: {
+                                        root: classes.cssLabel,
+                                        focused: classes.cssFocused,
+                                        formControl: classes.formControl,
+                                        error: classes.error
+                                    }
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        input: classes.input,
+                                        error: classes.error,
+                                        root: classes.cssOutlinedInput,
+                                        focused: classes.cssFocused,
+                                        notchedOutline: classes.notchedOutline
+                                    },
+                                }}
+                            />
+                            {touched.email && errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+                            {errorMessage && <ErrorMessage>{errorMessage.includes('User') && errorMessage}</ErrorMessage>}
 
-                            <div>
-                                <Input
-                                    type='email'
-                                    autoComplete='off'
-                                    label="Email"
-                                    name='email'
-                                    variant='outlined'
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={(touched.email && errors.email) || errorMessage ? true : false}
-                                    margin='normal'
-                                    InputLabelProps={{
-                                        classes: {
-                                            root: classes.cssLabel,
-                                            focused: classes.cssFocused,
-                                            formControl: classes.formControl,
-                                            error: classes.error
-                                        },
-                                    }}
-                                    InputProps={{
-                                        classes: {
-                                            input: classes.input,
-                                            error: classes.error,
-                                            root: classes.cssOutlinedInput,
-                                            focused: classes.cssFocused,
-                                            notchedOutline: classes.notchedOutline
-                                        },
-                                    }}
-                                />
-                                {touched.email && errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
-                                {errorMessage && <ErrorMessage>{errorMessage.includes('User') && errorMessage}</ErrorMessage>}
-                            </div>
+                            <Label className='loginOption'>2. Do you have a password?</Label>
+                            <LoginOptions
+                                hasPassword={this.state.hasPassword}
+                                handleChange={this.handleChange}
+                            />
 
-                            <div>
-                                <Input
-                                    type='password'
-                                    autoComplete='off'
-                                    label="Password"
-                                    name='password'
-                                    variant='outlined'
-                                    value={values.password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={(touched.password && errors.password) || errorMessage ? true : false}
-                                    margin='normal'
-                                    InputLabelProps={{
-                                        classes: {
-                                            root: classes.cssLabel,
-                                            focused: classes.cssFocused,
-                                            formControl: classes.formControl,
-                                            error: classes.error
-                                        },
-                                    }}
-                                    InputProps={{
-                                        classes: {
-                                            input: classes.input,
-                                            error: classes.error,
-                                            root: classes.cssOutlinedInput,
-                                            focused: classes.cssFocused,
-                                            notchedOutline: classes.notchedOutline
-                                        },
-                                    }}
-                                />
-                                {touched.password && errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
-                                {errorMessage && <ErrorMessage>{errorMessage.includes('Password') && errorMessage}</ErrorMessage>}
-                            </div>
+                            {
+                                hasPassword === 'false' ?
+                                    null
+                                    :
+                                    <>
+                                        <Input
+                                            type='password'
+                                            autoComplete='off'
+                                            label="Password"
+                                            name='password'
+                                            variant='outlined'
+                                            value={values.password}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            error={(touched.password && errors.password) || errorMessage ? true : false}
+                                            margin='normal'
+                                            InputLabelProps={{
+                                                classes: {
+                                                    root: classes.cssLabel,
+                                                    focused: classes.cssFocused,
+                                                    formControl: classes.formControl,
+                                                    error: classes.error
+                                                }
+                                            }}
+                                            InputProps={{
+                                                classes: {
+                                                    input: classes.input,
+                                                    error: classes.error,
+                                                    root: classes.cssOutlinedInput,
+                                                    focused: classes.cssFocused,
+                                                    notchedOutline: classes.notchedOutline
+                                                }
+                                            }}
+                                        />
+                                        {touched.password && errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+                                        {errorMessage && <ErrorMessage>{errorMessage.includes('Password') && errorMessage}</ErrorMessage>}
+                                    </>
+
+                            }
+
 
                             <Wrapper style={{ display: 'flex', alignItems: 'center' }}>
                                 <Button
-                                    type="submit"
-                                    full
+                                    type="button"
+                                    onClick={() => hideModal()}
+                                    outlined
                                 >
-                                    {processing ? <HalfCircleSpinner color='#fff' size={22} /> : 'LOGIN'}
+                                    CANCEL
+                                </Button>
+
+                                <Button type="submit" full style={{ marginLeft: '1.5rem' }}>
+                                    {processing ? <HalfCircleSpinner color='#fff' size={22} /> : 'CONTINUE'}
                                 </Button>
                             </Wrapper>
                         </Form>
@@ -239,7 +294,9 @@ const mapStateToProps = state => ({
 LoginForm.propTypes = {
     classes: PropTypes.object.isRequired,
     processing: PropTypes.bool,
-    errorMessage: PropTypes.string
+    errorMessage: PropTypes.string,
+    hideModal: PropTypes.func.isRequired,
+    loginUser: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, { loginUser })(withRouter(withStyles(styles)(LoginForm)))
+export default connect(mapStateToProps, { loginUser, registerUserViaLoginModal, hideModal })(withRouter(withStyles(styles)(LoginForm)))

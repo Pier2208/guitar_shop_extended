@@ -40,7 +40,7 @@ const WordThe = styled.h2`
     transform: translateX(-1rem);
 `
 const WordGuitar = styled.h2`
-    color: ${({ theme }) => theme.secondaryColorDark};
+    color: ${({ theme }) => theme.color.secondaryDark};
     font-size: 6rem;
     transform: rotate(-7deg) translateY(-1.5rem) translateX(-4rem);
 `

@@ -17,7 +17,7 @@ const Button = styled.button`
     border: none;
     outline: none;
     svg {
-        color: ${({ theme }) => theme.fontColorLight};
+        color: ${({ theme }) => theme.color.fontLight};
         font-size: 1.3rem;
     }
     :focus {
@@ -37,10 +37,10 @@ const SearchInput = styled.input.attrs({
     font-family: inherit; /* input elt does not inherit the font family of the global document */
     font-size: 1.3rem;
     font-weight: 300;
-    color: ${({ theme }) => theme.fontColorLight};
+    color: ${({ theme }) => theme.color.fontLight};
     padding: .7rem 1rem;
     background: transparent;
-    border: 1px solid ${({ theme }) => theme.fontColorLight};
+    border: 1px solid ${({ theme }) => theme.color.fontLight};
     outline: none;
     margin-right: -2.7rem;
     transition: all .2s;
@@ -50,7 +50,7 @@ const SearchInput = styled.input.attrs({
         -webkit-box-shadow: 0 0 0px 1000px white inset;
     }
     ::placeholder {
-        color: ${({ theme }) => theme.primaryColorLight};
+        color: ${({ theme }) => theme.color.primaryLight};
     }
     :focus {
         width: 100%;

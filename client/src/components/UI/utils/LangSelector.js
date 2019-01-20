@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     padding: 0 1rem;
     margin-left: 3rem;
     svg {
-        color: ${({theme}) => theme.fontColorLight};
+        color: ${({ theme }) => theme.color.fontLight};
         font-size: 1.3rem;
     }
 `
@@ -29,7 +29,7 @@ const Flag = styled.div`
     background-size: cover !important;
 `
 const Tag = styled.span`
-    color: ${({theme}) => theme.fontColorLight};
+    color: ${({ theme }) => theme.color.fontLight};
     font-size: 1.3rem;
     margin-left: .5rem;
 `

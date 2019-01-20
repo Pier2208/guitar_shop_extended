@@ -1,54 +1,32 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
 
 import ModalManager from './components/ModalManager'
 
-//theme
-import { theme } from './styles/theme'
+//theme and global styles
+import { defaultTheme } from './styles'
+import GlobalStyle from './styles/globalStyles'
 
 //components (public)
 import Layout from './components/UI/HOC/Layout'
 
 //components (private)
 
-//withAuth HOC
 
 //fontawesome library
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(fab, fas)
 
-//global styles
-const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css?family=Roboto:300,700');
-    @import url('https://fonts.googleapis.com/css?family=Fredericka+the+Great');
-    
-    html {
-        box-sizing: border-box;
-        font-size: 10px;
-    }
-    *,
-    *:after,
-    *:before {
-        box-sizing: inherit;
-    }
-    body {
-        margin: 0;
-        padding: 0;
-        font-size: 1.6rem;
-        font-family: 'Roboto', sans-serif;
-        color: ${({theme}) => theme.fontColorDark};
-    }
-    a {
-        text-decoration: none;
-    }
-`
+//withAuth HOC
+
+
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={defaultTheme}>
       <Layout>
         <GlobalStyle />
         <ModalManager />

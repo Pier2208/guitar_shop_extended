@@ -14,7 +14,7 @@ export const Overlay = styled.div`
 `
 
 export const ModalBox = styled.div`
-    ${props => props.type === 'loginModal' && css`
+    ${({type}) => type === 'loginModal' && css`
         background-color: #fefefe;
         margin: 5% auto; /* 5% from the top and centered */
         outline: none;
@@ -22,7 +22,7 @@ export const ModalBox = styled.div`
         height: 50rem;
         z-index: 1000;
   `}
-    ${props => props.type === 'registerModal' && css`
+    ${({type}) => type === 'registerModal' && css`
         background: #fff;
         margin: 5% auto; /* 5% from the top and centered */
         outline: none;

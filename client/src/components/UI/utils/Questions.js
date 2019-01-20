@@ -10,7 +10,7 @@ const QuestionsWrapper = styled.div`
     justify-content: space-around;
 
     h3 {
-        color: ${({ theme }) => theme.fontColorLight};
+        color: ${({ theme }) => theme.color.fontLight};
         font-size: 1.5rem;
         font-weight: 300;
         text-transform: uppercase;
@@ -18,7 +18,7 @@ const QuestionsWrapper = styled.div`
     }
     
     svg {
-        color: ${({ theme }) => theme.fontColorLight};
+        color: ${({ theme }) => theme.color.fontLight};
         font-size: 2.2rem;
     }
 `
