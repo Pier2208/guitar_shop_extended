@@ -45,6 +45,9 @@ module.exports = {
         loginSchema: {
             email,
             password
+        },
+        registerViaLoginSchema: {
+            email
         }
     }
 }

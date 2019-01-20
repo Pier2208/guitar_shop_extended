@@ -113,6 +113,25 @@ const FormFailure = styled.div`
 
 class RegisterForm extends Component {
 
+    //email input is dynamic, either empty or populated if the user is coming from the login modal
+    state = {
+        email: ''
+    }
+    
+    //if there is any email passed in as props, we can passed it to the component state
+    //formik email input will be equal to this.state.email thus preserving the single source of truth
+    static getDerivedStateFromProps(props, state) {
+        if(props.user.data) {
+            if (props.user.data.email !== state.email) {
+                return {
+                    email: props.user.data.email
+                }
+            }
+        }
+        return null
+    }
+
+
     render() {
         const { classes } = this.props
         const { processing, errorMessage } = this.props.user
@@ -122,7 +141,7 @@ class RegisterForm extends Component {
                 initialValues={{
                     firstname: '',
                     lastname: '',
-                    email: '',
+                    email: this.state.email,
                     password: '',
                     confirmPassword: '',
                     newsletter: false

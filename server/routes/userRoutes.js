@@ -13,6 +13,11 @@ const { authenticate }  = require('../middlewares/authenticate')
 //PUBLIC route
 router.post('/register', validateBody(schemas.registerSchema), userController.registerUser)
 
+//@ POST 'api/users/register_via_login'
+//@ Desc Register a new user
+//PUBLIC route
+router.post('/register_via_login', validateBody(schemas.registerViaLoginSchema), userController.registerUserViaLogin)
+
 //@ POST 'api/users/login'
 //@ Desc Log in a user
 //PUBLIC route

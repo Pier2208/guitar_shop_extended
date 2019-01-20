@@ -31,6 +31,7 @@ export const loginUser = (formData, resetForm) => ({
 export const registerUserViaLoginModal = formData => ({
     type: REGISTER_USER_VIA_LOGIN_MODAL,
     formData
+    
 })
 
 export const userReset = () => ({

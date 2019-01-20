@@ -62,7 +62,31 @@ module.exports = {
             res.cookie('x_auth', token).status(200).json(true)
 
         } catch (err) {
-            return res.status(500).json({ error: 'An error occured during the creation of the account'})
+            return res.status(500).json({ error: 'An error occured during the creation of the account' })
+        }
+    },
+
+    registerUserViaLogin: async (req, res) => {
+
+        try {
+
+            if (req.errors)
+                return res.status(400).json(req.errors)
+
+            //verify that email is not already in database
+            const existingDoc = await db.getDb()
+                .db()
+                .collection('users')
+                .findOne({ 'local.email': req.body.email.toLowerCase().trim() })
+
+            if (existingDoc) {
+                return res.status(400).json({ email: 'Email already in use' })
+            }
+
+            return res.status(200).json({ email: req.body.email })
+
+        } catch (err) {
+            return res.status(500).json({ error: 'An error occured' })
         }
     },
 

@@ -158,14 +158,15 @@ class LoginForm extends Component {
                 }
 
                 onSubmit={
-                    //if radio btn 'Ihave  a password' is clicked, associate this function to the CONTINUE BTN
+                    //if radio btn 'I have  a password' is clicked, associate this function to the CONTINUE BTN
                     hasPassword === 'true' ?
                         (values, { resetForm }) => {
                             loginUser(values, resetForm)
                         }
                         :
-                        //otherwise, CONTINUE BTN will will trigger this function
-                        values => registerUserViaLoginModal(values)
+                        //otherwise, CONTINUE BTN will be triggering this function
+                        //but we want an object with only email as property (otherwise password: '' won't pass the validation)
+                        ({ email }) => registerUserViaLoginModal({ email })
                 }
             >
 
@@ -219,6 +220,7 @@ class LoginForm extends Component {
                             />
                             {touched.email && errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
                             {errorMessage && <ErrorMessage>{errorMessage.includes('User') && errorMessage}</ErrorMessage>}
+                            {errorMessage && <ErrorMessage>{errorMessage.includes('Email') && errorMessage}</ErrorMessage>}
 
                             <Label className='loginOption'>2. Do you have a password?</Label>
                             <LoginOptions
@@ -296,7 +298,8 @@ LoginForm.propTypes = {
     processing: PropTypes.bool,
     errorMessage: PropTypes.string,
     hideModal: PropTypes.func.isRequired,
-    loginUser: PropTypes.func.isRequired
+    loginUser: PropTypes.func.isRequired,
+    registerUserViaLoginModal: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, { loginUser, registerUserViaLoginModal, hideModal })(withRouter(withStyles(styles)(LoginForm)))
